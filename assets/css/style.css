@@ -10,3 +10,29 @@ h1,h2,h3
 {
     font-family: 'Graduate', cursive;
 }
+
+
+.jumbotron {
+    padding: 32px 0px;
+    font-family: 'Graduate', cursive;
+    border: 1px solid;
+}
+
+.qc {
+    padding: 3px;
+    border: 2px solid;
+    text-align: center;
+    margin: 2% 30%;
+}
+
+.qc:hover {
+    background: rgba(0, 0, 0, 0.671);
+    color: rgba(255, 255, 255, 0.74);
+    border: 2px solid black;
+    cursor: none;
+    ;
+}
+
+.p2 {
+    font-size: 150%;
+}
