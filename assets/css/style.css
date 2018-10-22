@@ -36,3 +36,8 @@ h1,h2,h3
 .p2 {
     font-size: 150%;
 }
+
+.img-responsive {
+    width: 25%;
+    height: 25%;
+}

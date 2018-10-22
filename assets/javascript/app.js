@@ -8,7 +8,7 @@ $(document).ready(function () {
         an image?
         
         need a start function, reset function
-        reset function */
+         */
 
     var TI = 0;
     var timer = 15;
@@ -22,56 +22,56 @@ $(document).ready(function () {
             question: "Who was the first team to win the NBA Finals in 1950?",
             choices: ["Minneapolis Lakers", "Syracuse Nationals", "Fort Wayne Pistons", "New York Knicks"],
             answer: "Minneapolis Lakers",
-            image: "<img src= '../images/Minneapolis_lakers_logo.png' >",
+            image: "<img src= 'assets/images/Minneapolis_lakers_logo.png' class='img-responsive' />",
         },
 
         {
             question: "Which team has won the most NBA Finals championships?",
             choices: ["Chicago Bulls", "Los Angeles Lakers", "Boston Celtics", "Golden State Warriors"],
             answer: "Boston Celtics",
-            image: "<img src= 'assets/images/BOS.logo.svg' >",
+            image: "<img src= 'assets/images/celtics-logo.jpg' class='img-responsive' />",
         },
 
         {
             question: "Who was the only player to win 6 Finals MVP?",
             choices: ["Lebron James", "Kareem Abdul Jabaar", "Bill Russell", "Michael Jordan"],
             answer: "Michael Jordan",
-            image: "<img src= '../images/MJ.jpg' />",
+            image: "<img src= 'assets/images/MJ.jpg'class='img-responsive' />",
         },
 
         {
             question: "Name the last team to achieve a 3-peat in the NBA Finals (3 in a row)?",
             choices: ["Los Angeles Lakers", "Miami Heat", "San Antonio Spurs", "Utah Jazz"],
             answer: "Los Angeles Lakers",
-            image: "<img src= '../images/3peat.jpg' />",
+            image: "<img src= 'assets/images/3peat.jpg'class='img-responsive' />",
         },
 
         {
             question: "Which team broke a 52-year championship drought in their city, by winning the 2016 NBA Finals?",
             choices: ["Atlanta Hawks", "Sacramento Kings", "Cleveland Cavaliers", "Denver Nuggets"],
             answer: "Cleveland Cavaliers",
-            image: "<img src= '../images/cavs.jpg' />",
+            image: "<img src= 'assets/images/cavs.jpg'class='img-responsive' />",
         },
 
         {
             question: "Which one of these players has won the most NBA Finals?",
             choices: ["Michael Jordan", "Kobe Bryant", "Bill Russell", "Tim Duncan"],
             answer: "Bill Russell",
-            image: "<img src= '../images/russell.jpg' />",
+            image: "<img src= 'assets/images/russell.jpg'class='img-responsive' />",
         },
 
         {
             question: "Which one of these teams has never won the NBA Finals trophy?",
             choices: ["Minnesota Timberwolves", "Cleveland Cavaliers", "Washington Wizards", "Milwaukee Bucks"],
             answer: "Minnesota Timberwolves",
-            image: "<img src= '../images/twolves.jpg' />",
+            image: "<img src= 'assets/images/twolves.jpg'class='img-responsive' />",
         },
 
         {
             question: "Name the player with the most NBA Finals losses with 8? (1 win)",
             choices: ["Shaquille O'Neal", "Jerry West", "Lebron James", "Magic Johnson"],
             answer: "Jerry West",
-            image: "<img src= '../images/jerry-west-nba-logo.jpg' />",
+            image: "<img src= 'assets/images/jerry-west-nba-logo.jpg'class='img-responsive' />",
         },
     ];
 
@@ -86,15 +86,16 @@ $(document).ready(function () {
 
 
     var rightAnswer = trivia[TI].answer;
-    var image = trivia[TI].image;
+    
+    
 
     function youRight() {
-        $("#gameplay").html("<p2 class='p2'> Swish! Your right! </p2> <br>")
+        $("#gameplay").html("<p2 class='p2'> Swish! You're right! </p2> <br>")
         rightGuess++;
         rightAnswer = trivia[TI].answer;
         $("#gameplay").append("<p2 class='p2'> The answer is: " + rightAnswer + "</p2>");
-        $("gameplay").append(image);
-        setTimeout(Qengine, 5000);
+        $("#gameplay").append("<div class='imgwrapper'>" + trivia[TI].image + "</div>");
+        setTimeout(qEngine, 5000);
         TI++;
     }
     function youWrong() {
@@ -102,19 +103,19 @@ $(document).ready(function () {
         wrongGuess++;
         rightAnswer = trivia[TI].answer;
         $("#gameplay").append("<p2 class='p2'> The correct answer is: " + rightAnswer + "</p2>");
-        $("gameplay").append($("<img>").attr("src", image));
-        setTimeout(Qengine, 5000);
+        $("#gameplay").append("<div class='imgwrapper'>" + trivia[TI].image + "</div>");
+        setTimeout(qEngine, 5000);
         TI++;
     }
 
     function timesUp() {
-        if (timer === 0) {
-            $("#gameplay").html("<p2 class='p2'> Aaaaair Ball </p2> <br>")
+        if (timer < 1) {
+            $("#gameplay").html("<p2 class='p2'> Aaaaair Ball! Wrong! </p2> <br>")
             wrongGuess++;
             rightAnswer = trivia[TI].answer;
-            $("#gameplay").html("<p2 class='p2'> The correct answer is: " + rightAnswer + "</p2>");
-            $("gameplay").append($("<img>").attr("src", image));
-            setTimeout(Qengine, 5000);
+            $("#gameplay").append("<p2 class='p2'> The correct answer is: " + rightAnswer + "</p2>");
+            $("#gameplay").append("<div class='imgwrapper'>" + trivia[TI].image + "</div>");
+            setTimeout(qEngine, 5000);
             TI++;
         }
     }
@@ -123,7 +124,7 @@ $(document).ready(function () {
 
     function timeClock() {
         clock = setInterval(count, 1000);
-        function count(clock) {
+        function count() {
             if (timer < 1) {
                 clearInterval(clock);
                 timesUp();
@@ -135,7 +136,7 @@ $(document).ready(function () {
         }
     }
 
-    function Qengine() {
+    function qEngine() {
         if (TI < trivia.length) {
             timer = 15;
             Qplacement();
@@ -144,11 +145,11 @@ $(document).ready(function () {
             timesUp();
         }
         else {
-            // endGame ();
+            endGame();
         }
     }
 
-    $(".btn").click(Qplacement);
+    $(".btn").click(qEngine);
     $("#gameplay").on("click", ".qc", function () {
         var guess = $(this).text();
         if (guess === trivia[TI].answer) {
@@ -162,9 +163,31 @@ $(document).ready(function () {
         }
     })
 
+    function endGame() {
+        if (rightGuess === trivia.length) {
+            var message = "8/8! You must be an NBA All-Star with your skills!";
+            
+        }
+        else if (rightGuess > wrongGuess) {
+            var message = "Pretty good! You're a bonafide hooper!";
+        }
+        else {
+            var message = "No hard feelings, but coach said your being benched. Sorry.";
+        }
 
+        $("#gameplay").html("<p>" + message + "</p>");
+        $("#gameplay").append("<p> Correct: " + rightGuess + "</p>");
+        $("#gameplay").append("<p> Incorrect: " + wrongGuess + "</p>");
+        reset();
+        $(".btn").append("START");
+        $(".btn").click(qEngine);
+    }
 
-
+    function reset() {
+        rightGuess = 0;
+        wrongGuess = 0;
+        TI = 0;
+    }
 
 
 
