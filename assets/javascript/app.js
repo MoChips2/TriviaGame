@@ -94,7 +94,7 @@ $(document).ready(function () {
         rightAnswer = trivia[TI].answer;
         $("#gameplay").append("<p2 class='p2'> The answer is: " + rightAnswer + "</p2>");
         $("gameplay").append(image);
-       //setTimeout(Qengine, 5000);
+        setTimeout(Qengine, 5000);
         TI++;
     }
     function youWrong() {
